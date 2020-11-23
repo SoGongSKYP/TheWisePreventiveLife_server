@@ -1,5 +1,6 @@
 package user;
 
+import java.beans.Statement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -18,7 +19,7 @@ public class ConnectDB {
     private static final String jdbcUrl = "jdbc:oracle:thin:@127.0.0.1:1521:XE";
     private static final String userId = "system";
     private static final String userPw = "oracle";
-
+    Statement stmt = null;
     Connection conn = null;
     PreparedStatement pstmt = null;
     PreparedStatement pstmt2 = null;
@@ -26,8 +27,8 @@ public class ConnectDB {
 
     String sql = "";
     String sql2 = "";
-    String returns = "a";
-    String returns2 = "a";
+    String returns = "error_a";
+    String returns2 = "error_b";
 
     public String connectionDB(String id, String pwd) {
         try {
@@ -64,17 +65,18 @@ public class ConnectDB {
         	Class.forName("oracle.jdbc.driver.OracleDriver");
             conn = DriverManager.getConnection(jdbcUrl, userId, userPw);
           
-            sql = "SELECT pwd FROM userTBL WHERE id = ?";
+           sql = "SELECT PWD FROM userTBL WHERE ID = ?";
+            //sql="select * from manager A where A.managerID = "+id+" and A.managerPW = "+pwd;
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, id);
 
             rs = pstmt.executeQuery();
             if (rs.next()) {
             	if(rs.getString(1).equals(pwd))
-					return "success";	//�α��� ����
+					return "success";	
 				else
-					return "failed";	//��й�ȣ ����ġ
-            } 
+					return "failed";	
+            } else {return "noId";}
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -83,6 +85,33 @@ public class ConnectDB {
             if (conn != null)try {conn.close();    } catch (SQLException ex) {    }
         }
         return returns2;
+    }
+    public String bringManInfo() {
+   /*     try {
+        	Class.forName("oracle.jdbc.driver.OracleDriver");
+            conn = DriverManager.getConnection(jdbcUrl, userId, userPw);
+          
+           sql = "SELECT * FROM userTBL";
+            //sql="select * from manager A where A.managerID = "+id+" and A.managerPW = "+pwd;
+            
+           // pstmt.setString(1, id);
+            stmt = (Statement) conn.createStatement();
+            rs = ((java.sql.Statement) stmt).executeQuery(sql);
+            //rs = pstmt.executeQuery();
+            while (rs.next()) {
+            	System.out.println(rs.getString("ID"));
+            returns+=rs.getString("id");
+            System.out.println(rs.getString("PWD"));
+            returns+=rs.getString(2);	
+            } 
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (pstmt2 != null)try {pstmt2.close();    } catch (SQLException ex) {}
+            if (pstmt != null)try {pstmt.close();} catch (SQLException ex) {}
+            if (conn != null)try {conn.close();    } catch (SQLException ex) {    }
+        }*/
+        return returns;
     }
 }
 
