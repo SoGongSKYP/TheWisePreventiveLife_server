@@ -19,7 +19,7 @@ if (type == null) {
 	return;
 } else if (type.equals("test_write")) {
 	System.out.println("값을 받았습니다." + id + " " + pw);
-	returns = connectDB.connectionDB(id, pw);
+	//returns = connectDB.connectionDB(id, pw);
 	System.out.println(returns);
 	out.println(returns);// 안드로이드로 전송
 }

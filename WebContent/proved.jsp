@@ -3,6 +3,7 @@
 <%@page import="user.*"%>
 <%@page import="patient.*"%>
 <%@ page import="java.io.PrintWriter"%>
+
 <%
 	//JSONObject jsonMain = new JSONObject();
 //JSONArray jArray = new JSONArray();
@@ -44,10 +45,7 @@ ConnectDB connectDB = ConnectDB.getInstance();
 	%>
 	회원가입 후 로그인 테스트2:<%=returns%><br><br>
 	
-	<%
-	returns = connectDB.bringManInfo();
-	%>
-	전체 매니저불러오기<%=returns%><br><br>
+	
 	<hr>환자<hr>
 	
 	<%

@@ -1,5 +1,7 @@
 package user;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;  
 import java.beans.Statement;
 import java.sql.Connection;
 import java.sql.Date;
@@ -9,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+
 
 public class ConnectDB {
 	private static ConnectDB instance = new ConnectDB();
@@ -152,7 +155,7 @@ public class ConnectDB {
   	}
   	
   	public String bringPmovingInfo() {
-  		returns="";
+  		JSONArray arr=new JSONArray();
         try {
         	Class.forName("oracle.jdbc.driver.OracleDriver");
             conn = DriverManager.getConnection(jdbcUrl, userId, userPw);
@@ -163,23 +166,19 @@ public class ConnectDB {
            
         
             while (rs.next()) {
-            returns+="pnum: ";
-            returns+=rs.getString(1);
-            returns+="  &   plocnum: ";
-            returns+=rs.getString(2);
-            returns+="  &   visitmdate: ";
+            JSONObject obj=new JSONObject();
+            
+            obj.put("pnum",rs.getString(1));
+            obj.put("plocnum",rs.getString(2));
             DateFormat df3 = new SimpleDateFormat("yyyy-MM-dd");
-            returns+=df3.format(rs.getDate(3));
-            returns+="  &   pointx: ";
-            returns+=Double.toString(rs.getDouble(4));
-            returns+="  &   pointy: ";
-            returns+=Double.toString(rs.getDouble(5));
-            returns+="  &   address: ";
-            returns+=rs.getString(6);
-            returns+="        ////        ";
-            System.out.println(returns);
+            obj.put("visitdate",df3.format(rs.getDate(3)));
+            obj.put("pointx",Double.toString(rs.getDouble(4)));
+            obj.put("pointy",Double.toString(rs.getDouble(5)));
+            obj.put("address",rs.getString(6));
+            if(obj!=null) arr.add(obj);
             } 
-            return returns;
+                System.out.println(arr.toString());
+                return "success";
         } catch (Exception e) {
             e.printStackTrace();
         } 
@@ -189,7 +188,7 @@ public class ConnectDB {
   	
   	
 	public String bringPatientInfo() {
-  		returns="";
+		JSONArray arr=new JSONArray();
         try {
         	Class.forName("oracle.jdbc.driver.OracleDriver");
             conn = DriverManager.getConnection(jdbcUrl, userId, userPw);
@@ -200,18 +199,16 @@ public class ConnectDB {
            
         
             while (rs.next()) {
-            returns+="pnum: ";
-            returns+=rs.getString(1);
-            returns+="  &   plocnum: ";
-            returns+=rs.getString(2);
-            returns+="  &   confirmdate: ";
-            DateFormat df3 = new SimpleDateFormat("yyyy-MM-dd");
-            returns+=df3.format(rs.getDate(3));
-            
-            returns+="        ///        ";
-            System.out.println(returns);
+            	JSONObject obj=new JSONObject();
+                
+                obj.put("pnum",rs.getString(1));
+                obj.put("plocnum",rs.getString(2));
+                DateFormat df3 = new SimpleDateFormat("yyyy-MM-dd");
+                obj.put("confirmdate",df3.format(rs.getDate(3)));
+                if(obj!=null) arr.add(obj);
             } 
-            return returns;
+            System.out.println(arr.toString());
+            return "success";
         } catch (Exception e) {
             e.printStackTrace();
         } 
@@ -282,6 +279,7 @@ public class ConnectDB {
     }
     
     public String bringManInfo() {
+    	JSONArray arr=new JSONArray();
         try {
         	Class.forName("oracle.jdbc.driver.OracleDriver");
             conn = DriverManager.getConnection(jdbcUrl, userId, userPw);
@@ -289,19 +287,19 @@ public class ConnectDB {
            sql = "SELECT * FROM userTBL";
            pstmt = conn.prepareStatement(sql);
            rs = pstmt.executeQuery();
-           returns="";
-        
+
             while (rs.next()) {
-            returns+="id: ";
-            returns+=rs.getString(1);
-            returns+="& pwd: ";
-            returns+=rs.getString(2);
-            returns+="/ / /";
+            JSONObject obj=new JSONObject();
+            
+            obj.put("id",rs.getString(1));
+            obj.put("pwd",rs.getString(2));
+            if(obj!=null) arr.add(obj);
             } 
+            System.out.println(arr.toString());
+            return "success";
         } catch (Exception e) {
             e.printStackTrace();
         } 
-        System.out.println(returns);
-        return returns;
+        return "fail";
     }
 }
