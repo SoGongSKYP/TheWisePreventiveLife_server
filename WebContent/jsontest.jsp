@@ -3,7 +3,7 @@
 <%@page import="user.*"%>
 <%@page import="patient.*"%>
 <%@ page import="java.io.PrintWriter"%>
-
+<%@page import="org.json.simple.*" %>
 
 <%
 
@@ -24,26 +24,26 @@ request.setCharacterEncoding("UTF-8");
 </head>
 <body>
 	<%
-
-		String arr=connectDB.bringManInfo();
+JSONArray jarr=connectDB.bringManInfo();
 	
 	%>
-	전체 매니저불러오기<%=arr%><br>
+	전체 매니저불러오기<%=jarr%><br>
+	out.print(jarr);
 	<br>
 	
 	<%
-
-		arr=connectDB.bringPatientInfo();
+String arr=" ";
+		jarr=connectDB.bringPatientInfo();
 	
 	%>
-	전체 환자ㅏ불러오기<%=arr%><br>
+	전체 환자ㅏ불러오기<%=jarr%><br>
 	<br>
 	<%
 
-		arr=connectDB.bringPmovingInfo();
+		jarr=connectDB.bringPmovingInfo();
 	
 	%>
-	전체 환자동선불러오기<%=arr%><br>
+	전체 환자동선불러오기<%=jarr%><br>
 
 </body>
 </html>

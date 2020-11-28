@@ -154,7 +154,7 @@ public class ConnectDB {
         return "fail";
   	}
   	
-  	public String bringPmovingInfo() {
+  	public JSONArray bringPmovingInfo() {
   		JSONArray arr=new JSONArray();
         try {
         	Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -177,17 +177,16 @@ public class ConnectDB {
             obj.put("address",rs.getString(6));
             if(obj!=null) arr.add(obj);
             } 
-                System.out.println(arr.toString());
-                return "success";
+                return arr;
         } catch (Exception e) {
             e.printStackTrace();
         } 
         
-        return "error";
+        return arr;
     }
   	
   	
-	public String bringPatientInfo() {
+	public JSONArray bringPatientInfo() {
 		JSONArray arr=new JSONArray();
         try {
         	Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -207,13 +206,12 @@ public class ConnectDB {
                 obj.put("confirmdate",df3.format(rs.getDate(3)));
                 if(obj!=null) arr.add(obj);
             } 
-            System.out.println(arr.toString());
-            return "success";
+            return arr;
         } catch (Exception e) {
             e.printStackTrace();
         } 
         
-        return "error";
+        return arr;
     }
   	
   	
@@ -263,8 +261,8 @@ public class ConnectDB {
 
             rs = pstmt.executeQuery();
             if (rs.next()) {
-            	if(rs.getString(1).equals(pwd))
-					return "success";	
+            	if(rs.getString(1).equals(pwd)) {
+					return "success";	}
 				else
 					return "failed";	
             } else {return "noId";}
@@ -278,7 +276,7 @@ public class ConnectDB {
         return returns2;
     }
     
-    public String bringManInfo() {
+    public JSONArray bringManInfo() {
     	JSONArray arr=new JSONArray();
         try {
         	Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -295,11 +293,10 @@ public class ConnectDB {
             obj.put("pwd",rs.getString(2));
             if(obj!=null) arr.add(obj);
             } 
-            System.out.println(arr.toString());
-            return "success";
+           return arr;
         } catch (Exception e) {
             e.printStackTrace();
         } 
-        return "fail";
+        return arr;
     }
 }

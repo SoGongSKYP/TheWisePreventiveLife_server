@@ -28,7 +28,7 @@ else if (type.equals("login")) {
 	System.out.println("관리자 로그인을 진행합니다.");
 	returns = connectDB.loginDB(id, pw);
 	System.out.println(returns);
-	out.println(returns);// 안드로이드로 전송
+	//out.println(returns);// 안드로이드로 전송
 	
 } else if (type.equals("manager_info")) {
 	System.out.println("관리 정보를 모두 불러옵니다");
