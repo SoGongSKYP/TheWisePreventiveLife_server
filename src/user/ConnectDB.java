@@ -30,7 +30,7 @@ public class ConnectDB {
     String returns = "error_a";
     String returns2 = "error_b";
 
-    public String connectionDB(String id, String pwd) {
+    public String testJoin(String id, String pwd) {
         try {
         	Class.forName("oracle.jdbc.driver.OracleDriver");
             conn = DriverManager.getConnection(jdbcUrl, userId, userPw);
@@ -86,32 +86,28 @@ public class ConnectDB {
         }
         return returns2;
     }
+    
     public String bringManInfo() {
-   /*     try {
+        try {
         	Class.forName("oracle.jdbc.driver.OracleDriver");
             conn = DriverManager.getConnection(jdbcUrl, userId, userPw);
           
            sql = "SELECT * FROM userTBL";
-            //sql="select * from manager A where A.managerID = "+id+" and A.managerPW = "+pwd;
-            
-           // pstmt.setString(1, id);
-            stmt = (Statement) conn.createStatement();
-            rs = ((java.sql.Statement) stmt).executeQuery(sql);
-            //rs = pstmt.executeQuery();
+           pstmt = conn.prepareStatement(sql);
+           rs = pstmt.executeQuery();
+           returns="";
+        
             while (rs.next()) {
-            	System.out.println(rs.getString("ID"));
-            returns+=rs.getString("id");
-            System.out.println(rs.getString("PWD"));
-            returns+=rs.getString(2);	
+            returns+="id: ";
+            returns+=rs.getString(1);
+            returns+="& pwd: ";
+            returns+=rs.getString(2);
+            returns+="/ / /";
             } 
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            if (pstmt2 != null)try {pstmt2.close();    } catch (SQLException ex) {}
-            if (pstmt != null)try {pstmt.close();} catch (SQLException ex) {}
-            if (conn != null)try {conn.close();    } catch (SQLException ex) {    }
-        }*/
+        } 
+        System.out.println(returns);
         return returns;
     }
 }
-
