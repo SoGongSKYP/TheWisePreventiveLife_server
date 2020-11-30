@@ -27,8 +27,12 @@ request.setCharacterEncoding("UTF-8");
 JSONArray jarr=connectDB.bringManInfo();
 	
 	%>
+	
+	
+	
+	
 	전체 매니저불러오기<%=jarr%><br>
-	out.print(jarr);
+
 	<br>
 	
 	<%
@@ -46,4 +50,5 @@ String arr=" ";
 	전체 환자동선불러오기<%=jarr%><br>
 
 </body>
+
 </html>

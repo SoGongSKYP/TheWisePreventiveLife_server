@@ -94,15 +94,7 @@ ConnectDB connectDB = ConnectDB.getInstance();
 	returns=connectDB.pmovingDelete("11","1234","2020-11-11",4.564,7.2345);%>
 	환자 동선 삭제  테스트(실패: 없는 데이터터) <%=returns%><br><br>
 	
-	<%
-	returns = connectDB.bringPatientInfo();
-	%>
-	전체 확진자  불러오기<%=returns%><br><br>
 	
-	<%
-	returns = connectDB.bringPmovingInfo();
-	%>
-	전체 동선 불러오기<%=returns%><br><br>
 	
 </body>
 </html>
