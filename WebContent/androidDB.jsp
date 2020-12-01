@@ -45,16 +45,16 @@ else if (type.equals("login")) {
 	out.println(returns);// 안드로이드로 전송
 	
 }else if (type.equals("patients_info")) {
-	System.out.print("환 정보를 모두 불러옵니다");
-	System.out.print("값을 받았습니다." + type);
+	System.out.println("환 정보를 모두 불러옵니다");
+	System.out.println("값을 받았습니다." + type);
 	JSONArray arr = connectDB.bringPatientInfo();
 	System.out.print(arr);
 	out.println(arr);// 안드로이드로 전송
 	System.out.println("성공했습니다");
 	
 }else if (type.equals("pmoving_info")) {
-	System.out.print("환자 동선 정보를 모두 불러옵니다");
-	System.out.print("값을 받았습니다." + type);
+	System.out.println("환자 동선 정보를 모두 불러옵니다");
+	System.out.println("값을 받았습니다." + type);
 	JSONArray arr = connectDB.bringPmovingInfo();
 	System.out.print(arr);
 	out.println(arr);// 안드로이드로 전송
