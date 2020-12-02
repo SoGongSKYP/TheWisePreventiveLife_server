@@ -33,8 +33,7 @@ public class ConnectDB {
 
     String sql = "";
     String sql2 = "";
-    String returns = "error_a";
-    String returns2 = "error_b";
+  
     
   //3.아이디 중복체크------------------------------------------------------------------------------------------------------------------------------------
   	public String patientCheck(String pnum, String plocnum) {
@@ -86,7 +85,6 @@ public class ConnectDB {
         } catch (Exception e) {
             e.printStackTrace();
         } 
-        System.out.println(returns);
         return "fail";
   	}
   	
@@ -107,7 +105,6 @@ public class ConnectDB {
         } catch (Exception e) {
             e.printStackTrace();
         } 
-        System.out.println(returns);
         return "fail";
   	}
   	
@@ -126,7 +123,6 @@ public class ConnectDB {
         } catch (Exception e) {
             e.printStackTrace();
         } 
-        System.out.println(returns);
         return "fail";
   	}
   	
@@ -150,10 +146,9 @@ public class ConnectDB {
         } catch (Exception e) {
             e.printStackTrace();
         } 
-        System.out.println(returns);
         return "fail";
   	}
-  	
+  	//확진자 동선 정보 불러오
   	public JSONArray bringPmovingInfo() {
   		JSONArray arr=new JSONArray();
         try {
@@ -206,7 +201,7 @@ public class ConnectDB {
                 obj.put("confirmdate",df3.format(rs.getDate(3)));
                 if(obj!=null) arr.add(obj);
             } 
-            return arr;
+            return arr; 
         } catch (Exception e) {
             e.printStackTrace();
         } 
@@ -219,7 +214,7 @@ public class ConnectDB {
  //----------------------------------------------------------------------------------------------------------------------------------------------------------------
   	
 
-    public String testJoin(String id, String pwd) {
+    public String testJoin(String id, String pwd) {//회원가입 테스트용 
         try {
         	Class.forName("oracle.jdbc.driver.OracleDriver");
             conn = DriverManager.getConnection(jdbcUrl, userId, userPw);
@@ -230,14 +225,14 @@ public class ConnectDB {
 
             rs = pstmt.executeQuery();
             if (rs.next()) {
-                returns = "이미 존재하는 아이디 입니다.";
+                return "fail";
             } else {
                 sql2 = "INSERT INTO userTBL VALUES(?,?)";
                 pstmt2 = conn.prepareStatement(sql2);
                 pstmt2.setString(1, id);
                 pstmt2.setString(2, pwd);
                 pstmt2.executeUpdate();
-                returns = "회원 가입 성공 !";
+                return "success";
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -246,7 +241,7 @@ public class ConnectDB {
             if (pstmt != null)try {pstmt.close();} catch (SQLException ex) {}
             if (conn != null)try {conn.close();    } catch (SQLException ex) {    }
         }
-        return returns;
+        return "error";
     }
     
     public String loginDB(String id, String pwd) {
@@ -273,30 +268,7 @@ public class ConnectDB {
             if (pstmt != null)try {pstmt.close();} catch (SQLException ex) {}
             if (conn != null)try {conn.close();    } catch (SQLException ex) {    }
         }
-        return returns2;
+        return "error";
     }
-    
-    public JSONArray bringManInfo() {
-    	JSONArray arr=new JSONArray();
-        try {
-        	Class.forName("oracle.jdbc.driver.OracleDriver");
-            conn = DriverManager.getConnection(jdbcUrl, userId, userPw);
-          
-           sql = "SELECT * FROM userTBL";
-           pstmt = conn.prepareStatement(sql);
-           rs = pstmt.executeQuery();
 
-            while (rs.next()) {
-            JSONObject obj=new JSONObject();
-            
-            obj.put("id",rs.getString(1));
-            obj.put("pwd",rs.getString(2));
-            if(obj!=null) arr.add(obj);
-            } 
-           return arr;
-        } catch (Exception e) {
-            e.printStackTrace();
-        } 
-        return arr;
-    }
 }

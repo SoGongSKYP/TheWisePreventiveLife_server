@@ -3,17 +3,14 @@
 <%@page import="user.*"%>
 <%@page import="patient.*"%>
 <%@ page import="java.io.PrintWriter"%>
+<%@page import="org.json.simple.*" %>
 
 <%
-	//JSONObject jsonMain = new JSONObject();
-//JSONArray jArray = new JSONArray();
-//JSONObject jObject = new JSONObject();
 ConnectDB connectDB = ConnectDB.getInstance();
 
 %>
 <%
 	request.setCharacterEncoding("UTF-8");
-//sresponse.setContentType("text/html; charset=UTF-8");
 %>
 <!DOCTYPE html>
 <html>
@@ -94,6 +91,17 @@ ConnectDB connectDB = ConnectDB.getInstance();
 	returns=connectDB.pmovingDelete("11","1234","2020-11-11",4.564,7.2345);%>
 	환자 동선 삭제  테스트(실패: 없는 데이터터) <%=returns%><br><br>
 	
+	<%
+	JSONArray jarr=connectDB.bringPatientInfo();
+	
+	%>
+	전체 환자ㅏ불러오기<%=jarr%><br>
+	<br>
+	<%
+	jarr=connectDB.bringPmovingInfo();
+	%>
+	
+	전체 환자동선불러오기<%=jarr%><br>
 	
 	
 </body>
