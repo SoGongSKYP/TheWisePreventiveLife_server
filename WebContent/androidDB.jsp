@@ -49,7 +49,6 @@ if (type == null) { return;
 	out.println(arr);// 안드로이드로 전송
 	System.out.println("성공했습니다");
 
-
 /*안드로이드 요청4:확진자 추가  */
 } else if (type.equals("insert_patient")) {
 	System.out.println("관리자가 확진자 정보를 추가합니다"+pnum+" "+plocnum+" "+confirmdate);
