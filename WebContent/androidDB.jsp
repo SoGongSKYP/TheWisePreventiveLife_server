@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="user.*"%>
-<%@page import="patient.*"%>
 <%@ page import="java.io.PrintWriter"%>
 <%@page import="org.json.simple.*"%>
 <%
@@ -37,7 +36,7 @@ if (type == null) { return;
 	System.out.println("환자 정보를 모두 불러옵니다");
 	System.out.println("값을 받았습니다." + type);
 	JSONArray arr = connectDB.bringPatientInfo();
-	System.out.print(arr);
+	System.out.println(arr);
 	out.println(arr);// 안드로이드로 전송
 	System.out.println("성공했습니다");
 	
@@ -46,7 +45,7 @@ if (type == null) { return;
 	System.out.println("환자 동선 정보를 모두 불러옵니다");
 	System.out.println("값을 받았습니다." + type);
 	JSONArray arr = connectDB.bringPmovingInfo();
-	System.out.print(arr);
+	System.out.println(arr);
 	out.println(arr);// 안드로이드로 전송
 	System.out.println("성공했습니다");
 
@@ -60,7 +59,7 @@ if (type == null) { return;
 	
 /*안드로이드 요청5:동선 추가  */
 }else if (type.equals("insert_pmoving")) {
-	System.out.println("관리자가 동선 정보를 추가합니다"+pnum+" "+plocnum+" "+confirmdate);
+	System.out.println("\n관리자가 동선 정보를 추가합니다"+pnum+" "+plocnum+" "+address);
 	String returns=connectDB.pmovingInsert(pnum, plocnum, visitdate, Double.parseDouble(pointx), Double.parseDouble(pointy), address);
 	System.out.print(returns);
 	out.print(returns);
@@ -74,12 +73,12 @@ if (type == null) { return;
 	
 /*안드로이드 요청7 동선 삭제 */
 }else if (type.equals("delete_pmoving")) {
-	System.out.println("관리자가 동선 정보를 삭제합니다"+pnum+" "+plocnum+" "+pointx+" "+pointy);
+	System.out.println("\n관리자가 동선 정보를 삭제합니다"+pnum+" "+plocnum+" "+pointx+" "+pointy);
 	String returns=connectDB.pmovingDelete(pnum, plocnum, visitdate, Double.parseDouble(pointx), Double.parseDouble(pointy));
 	System.out.print(returns);
 	out.print(returns);
 	
-/*안드로이드 요청1: 확진자 중복 확인 */	
+/*안드로이드 요청8: 확진자 중복 확인 */	
 }else if (type.equals("check_patient")) {
 	System.out.println("이미 존재하는 확진자 정보인지 확합니다");
 	System.out.println("값을 받았습니다." + pnum+"  "+plocnum);
