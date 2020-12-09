@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="user.*"%>
-<%@page import="patient.*"%>
 <%@ page import="java.io.PrintWriter"%>
 <%@page import="org.json.simple.*" %>
 
@@ -21,21 +20,13 @@ ConnectDB connectDB = ConnectDB.getInstance();
 </head>
 <body>
 	<hr>확인됨<hr>
+
 	
 	<%
-	String returns = connectDB.testJoin("i1", "p1");
-	%>
-	회원가입 테스트1:<%=returns%><br><br>
-	
-	<%
-	returns = connectDB.loginDB("psystar", "99star");
+	String returns = connectDB.loginDB("psystar", "99star");
 	%>
 	회원가입 전 로그인 테스트1:<%=returns%><br><br>
-	
-	<%
-	returns = connectDB.testJoin("psystar", "99star");
-	%>
-	회원가입 테스트2:<%=returns%><br><br>
+
 	
 	<%
 	returns = connectDB.loginDB("psystar", "99star");
