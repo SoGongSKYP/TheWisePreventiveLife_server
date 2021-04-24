@@ -203,6 +203,7 @@ public class ConnectDB {
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 
+			if(rs != null){
 			while (rs.next()) {
 				JSONObject obj = new JSONObject();
 
@@ -215,11 +216,13 @@ public class ConnectDB {
 				obj.put("address", rs.getString(6));
 				if (obj != null) arr.add(obj);
 			}
-			return arr;
+			
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
+		System.out.println(arr);
 		return arr;
 	}
 
@@ -233,7 +236,10 @@ public class ConnectDB {
 			sql = "Select * from patient";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
+			
 
+
+			if(rs != null){
 			while (rs.next()) {
 				JSONObject obj = new JSONObject();
 
@@ -243,11 +249,12 @@ public class ConnectDB {
 				obj.put("confirmdate", df3.format(rs.getDate(3)));
 				if (obj != null)arr.add(obj);
 			}
-			return arr;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
+		System.out.println(arr);
 		return arr;
 	}
 
